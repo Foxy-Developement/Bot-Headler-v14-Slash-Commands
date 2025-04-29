@@ -1,3 +1,7 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits,REST, Routes,PermissionsBitField,ShardingManager, ActivityType, EmbedBuilder, WebhookClient, ButtonBuilder,ButtonStyle, ActionRowBuilder, ContextMenuCommandBuilder, ApplicationCommandType, ModalBuilder, TextInputBuilder, TextInputStyle  } = require('discord.js');
@@ -9,6 +13,15 @@ const client = new Client({ intents: [GatewayIntentBits.MessageContent, GatewayI
 
 client.commands = new Collection();
 
+if (process.env.mongoURI) {
+	const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.mongoURI, { 
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+}).then(console.log('Connected to mongo db!'))
+client.cooldowns = new Collection();
+} else {}
 
 const commandsFolder = fs.readdirSync("./commands");
 for (const folder of commandsFolder) {
