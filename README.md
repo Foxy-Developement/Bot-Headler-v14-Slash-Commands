@@ -5,4 +5,4 @@
 4) Start the bot with "node ."
 
 
-Support Server: https://foxy.owlhosting.cloud/support
+Support Server: https://foxys.win/support
